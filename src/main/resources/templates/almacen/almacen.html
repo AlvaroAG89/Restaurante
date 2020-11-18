@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<div th:replace="fragments/header :: head">...</div>
+
+
+<body>
+
+    <div th:replace="fragments/header :: header">...</div>
+    
+   
+    <div class="container-fluid">
+        <h1 class="mt-3 m-5 pl-5" style="font-family: 'Playfair Display';"><u>Almacen</u></h1>
+    </div>
+    <br>
+    <div class="card-tittle float-right p-1 m-4" sec:authorize="hasRole('ROLE_ADMIN')">
+		<a th:href="@{formularioAlmacen}" class="btn btn-primary btn mr-5">Nuevo ingrediente</a>
+	</div>
+    <br>
+    
+    	<input class=" form-control float-right" id="myInput" type="text" placeholder="Search..">
+   
+   <div class="m-5 p-5" >
+    <table class="table text-center" style="border:1px solid #cecece;">
+        <thead class="thead-dark">
+          <tr style="text-align-last: center;">
+            <th>ID</th>
+            <th>INGREDIENTE</th>
+            <th>STOCK</th>
+            <th>UNIDAD STOCK</th>
+            <th style="width : 1%;">EDITAR<th>
+          </tr>
+        </thead>
+        <tbody id="tablaAlmacen">
+          <tr th:each="producto:${almacen}">
+            <td th:text="${producto.idAlmacen}"></td>
+            <td th:text="${producto.ingrediente}"></td>
+            <td th:text="${producto.stock}"></td>
+            <td th:text="${producto.unidadesStock}"></td>
+            <td><a th:href="@{'formularioAlmacen/' + ${producto.idAlmacen}}" class="btn btn-primary mb-2"> Cambiar Cantidad </a>
+<!--             <a th:href="@{'eliminar/'+ ${producto.idAlmacen}}" class="btn btn-primary"> Eliminar Ingrediente </a></td> -->
+          </tr>
+        </tbody>
+      </table>
+      </div>
+    </div>
+
+   
+
+
+    <div th:replace="fragments/header :: footer">...</div>
+
+    <script>
+        $(document).ready(function(){
+          $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#tablaAlmacen tr").filter(function() {
+              $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+          });
+        });
+        </script>
+
+</body>
+
+</html>

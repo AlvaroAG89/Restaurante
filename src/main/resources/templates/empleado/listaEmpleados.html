@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<div th:replace="fragments/header :: head">...</div>
+
+
+<body>
+
+    <div th:replace="fragments/header :: header">...</div>
+
+
+    <div class="container py-4"> 
+		<div class="card  bg-light" >
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+				<h4 class="card-tittle" sec:authorize="hasRole('ROLE_ADMIN')">
+					<a th:href="@{formularioEmpleado}" class="btn btn-primary btn-xs">Crear
+						Empleado</a>
+				</h4>
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>nombre</th>
+							<th>apellido</th>
+							<th>Username</th>
+							<th>Editar</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="empleado: ${empleados}">
+							<td th:href="@{/ver/} + ${empleado.idEmpleado}" th:text="${empleado.idEmpleado}"></td>
+							<td th:text="${empleado.nombreEmpleado}"></td>
+							<td th:text="${empleado.apellidoEmpleado}"></td>
+							<td th:text="${empleado.username}"></td>
+							
+							
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-primary btn-xs"
+								th:href="@{formularioEmpleado/} + ${empleado.idEmpleado}" th:text="'Editar'"></a></td>
+								
+							<td	sec:authorize="hasRole('ROLE_USER')" th:if="${empleado.username == #authentication.getName()}"><a th:href="@{formularioEmpleado/} + ${empleado.idEmpleado}" 
+								th:text="'Editar'" class="btn btn-primary btn-xs"></a></td>
+							
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-danger btn-xs"
+								th:href="@{eliminar/} + ${empleado.idEmpleado}" th:text="'Eliminar'"
+								onclick="return confirm('Estas seguro que quieres eliminar?');"></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	
+<div th:replace="fragments/header :: footer"></div>
+
+</body>
+
+</html>

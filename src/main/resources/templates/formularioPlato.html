@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<div th:replace="fragments/header :: head">...</div>
+
+
+<body>
+
+    <div th:replace="fragments/header :: header">...</div>
+    
+    <div class="container card bg-dark text-white col-xl-6 col-lg-7 col-md-10 col-sm-10 col-xs-12">
+        <div class="card-header">Formulario </div>
+        <!--th:text="${titulo}"-->
+        <div class="card-body">
+
+            <form th:action="@{/Plato/formularioPlato}" th:object="${plato}" method="post" enctype="multipart/form-data">
+                <div class="form-group row">
+                    <label class="col-md-3 col-sm-4 col-form-label">Nombre</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{nombre}" class="form-control"
+                            th:errorclass="'form-control alert-danger'" /> <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class=" col-md-3 col-sm-4 col-form-label">Descripcion</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{descripcion}" class="form-control"
+                            th:errorclass="'form-control alert-danger'" /> <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+                    </div>
+                </div>  
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-sm-4 col-form-label">Difcultad</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{dificultad}" class="form-control"
+                            th:errorclass="'form-control alert-danger'" /> <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+                    </div>
+                </div>  
+
+                <!-- introducir la imagen -->
+                <div class="form-group row">
+                    <label for="file" class="col-md-3 col-sm-4 col-form-label">Imagen</label>
+                    <div class="col-sm-8">
+                    <!-- importante que type y name sea file -->
+                        <input type="file" name="file" class="form-control" />
+                    </div>
+                </div>
+
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-sm-4 col-form-label">Precio Final</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{precioFinal}" class="form-control"
+                            th:errorclass="'form-control alert-danger'" /> <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-sm-4 col-form-label">Categoria</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{miCategoria.idCategoria}" class="form-control"
+                            th:errorclass="'form-control alert-danger'" /> <small class="form-text text-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+                    </div>
+                </div>  
+
+
+                <div class="form-group">
+                    <div class="col-sm-8">
+                        <input type="submit" value="Crear Plato"
+                            class="btn btn-secondary" />
+                    </div>
+                </div>
+            
+            </form>
+        </div>
+    </div>
+
+
+
+</body>
+
+
+
+    <div th:replace="fragments/header :: footer">...</div>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<div th:replace="fragments/header :: head">...</div>
+
+
+<body>
+
+    <div th:replace="fragments/header :: header">...</div>
+
+<div style="height:400px; display:grid;" class="w-100">
+    <div class="container card bg-dark text-white col-xl-6 col-lg-7 col-md-10 col-sm-10 col-xs-12" style="height:300px;">
+        <div class="card-header">Formulario de Ingrediente</div>
+        <!--th:text="${titulo}"-->
+        <div class="card-body">
+
+            <form th:action="@{/Almacen/formularioAlmacen}" th:object="${almacen}" method="post" enctype="multipart/form-data">    
+                            
+               <div class="form-group row"  th:if="${not #strings.isEmpty(almacen.idAlmacen)}">
+                    <label class="col-md-3 col-sm-4 col-form-label">Id Ingrediente</label>
+                    <div class="col-sm-8" th:if="${not #strings.isEmpty(almacen.idAlmacen)}">
+                        <input type="text" th:field="*{idAlmacen}" class="form-control" readonly="readonly">
+                    </div>
+                </div>
+                
+                <div class="form-group row" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <label class="col-md-3 col-sm-4 col-form-label">Ingrediente</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{ingrediente}" class="form-control"
+                            th:errorclass="'form-control alert-danger'" /> <small class="form-text text-danger" th:if="${#fields.hasErrors('ingrediente')}" th:errors="*{ingrediente}"></small>
+                    </div>
+                </div>
+                
+                <div class="form-group row" sec:authorize="hasRole('ROLE_USER')">
+                    <label class="col-md-3 col-sm-4 col-form-label">Ingrediente</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{ingrediente}" class="form-control" readonly="readonly"
+                            th:errorclass="'form-control alert-danger'" /> <small class="form-text text-danger" th:if="${#fields.hasErrors('ingrediente')}" th:errors="*{ingrediente}"></small>
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label class="col-md-3 col-sm-4 col-form-label">Stock</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{stock}" class="form-control"
+                            th:errorclass="'form-control alert-danger'" /> <small class="form-text text-danger" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></small>
+                    </div>
+                </div>
+                
+                <div class="form-group row" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <label class="col-md-3 col-sm-4 col-form-label">Unidad Stock</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{unidadesStock}" class="form-control"
+                            th:errorclass="'form-control alert-danger'" /> <small class="form-text text-danger" th:if="${#fields.hasErrors('unidadesStock')}" th:errors="*{unidadesStock}"></small>
+                    </div>
+                </div>
+
+				<div class="form-group row" sec:authorize="hasRole('ROLE_USER')">
+                    <label class="col-md-3 col-sm-4 col-form-label">Unidad Stock</label>
+                    <div class="col-sm-8">
+                        <input type="text" th:field="*{unidadesStock}" class="form-control" readonly="readonly"
+                            th:errorclass="'form-control alert-danger'" /> <small class="form-text text-danger" th:if="${#fields.hasErrors('unidadesStock')}" th:errors="*{unidadesStock}"></small>
+                    </div>
+                </div>
+           
+                <div class="form-group">
+                    <div class="col-sm-8">
+                        <input type="submit" th:value="${titulo}"
+                            class="btn btn-secondary" />
+                    </div>
+                </div>
+           </form>     
+      </div>
+</div>
+</div>
+<br>
+<div class="">
+    <div th:replace="fragments/header :: footer">...</div>
+</div>
+</body>
+
+
+
+</html>

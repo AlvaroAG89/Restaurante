@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<div th:replace="fragments/header :: head">...</div>
+
+
+<body>
+
+    <div th:replace="fragments/header :: header">...</div>
+    
+	<div class="container card bg-danger text-white col-xl-6 col-lg-6 col-md-6 col-sm-6 col-xs-6"
+		style="margin-left: 30%;">
+	<div class="card-header">Error: Acesso denegado!</div>
+	<div class="card-body">
+	<h5 class="card-title">Lo sentimos <span th:text="${#httpServletRequest.remoteUser}">, no tienes permisos para acceder a esta pagina</span></h5>
+	<a th:href="@{/index}" class="btn btn-outline-light" role="button">Volver al Index</a>
+	</div>
+	</div>
+<div th:replace="fragments/header :: footer">...</div>
+
+</body>
+
+</html>

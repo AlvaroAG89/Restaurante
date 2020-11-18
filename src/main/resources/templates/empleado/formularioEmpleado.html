@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:replace="fragments/header :: head">...</div>
+
+
+<body>
+
+	<div th:replace="fragments/header :: header">...</div>
+
+	<div style="height: 550px; display: flex;">
+		<div class="float-left m-auto" style="height: 600px;"
+			th:if="${not #strings.isEmpty(empleado.idEmpleado)}">
+			<img class="vertical-center img-thumbnail rounded float-left"
+				style="max-width: 90%;"
+				th:src="@{'/uploads/' + ${empleado.fotoEmpleado}}"
+				th:alt="${empleado.fotoEmpleado}" />
+		</div>
+		<div
+			class="d-block container card bg-dark text-white col-xl-8 col-lg-8 col-md-10 col-sm-10 col-xs-12"
+			style="height: 550px;">
+			<div class="card-header">Formulario de Empleado</div>
+			<!--th:text="${titulo}"-->
+
+			<div class="card-body">
+
+				<form th:action="@{/empleado/formularioEmpleado}"
+					method="post" enctype="multipart/form-data">
+
+					<!--                 <div class="form-group row"  th:if="${not #strings.isEmpty(empleado.idEmpleado)}">               -->
+					<!-- 	                <img class="img-thumbnail rounded float-left"  -->
+					<!-- 		                style="max-width:25%;" th:src="@{'/uploads/' + ${empleado.fotoEmpleado}}"  -->
+					<!-- 		                th:alt="${empleado.fotoEmpleado}"/> -->
+					<!--               	</div> -->
+
+					<div class="form-group row"
+						th:if="${not #strings.isEmpty(empleado.idEmpleado)}">
+						<label class="col-md-3 col-sm-4 col-form-label">Id
+							Empleado</label>
+						<div class="col-sm-8"
+							th:if="${not #strings.isEmpty(empleado.idEmpleado)}">
+							<input type="text" th:field="*{empleado.idEmpleado}" class="form-control"
+								readonly="readonly">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-md-3 col-sm-4 col-form-label">Username</label>
+						<div class="col-sm-8">
+							<input type="text" th:field="*{empleado.username}" class="form-control"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('empleado.nombreEmpleado')}"
+								th:errors="*{nombreEmpleado}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-md-3 col-sm-4 col-form-label">Password</label>
+						<div class="col-sm-8">
+							<input type="password" th:field="*{empleado.password}"
+								class="form-control" th:errorclass="'form-control alert-danger'" />
+							<small class="form-text text-danger"
+								th:if="${#fields.hasErrors('empleado.password')}"
+								th:errors="*{nombreEmpleado}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-md-3 col-sm-4 col-form-label">Nombre</label>
+						<div class="col-sm-8">
+							<input type="text" th:field="*{empleado.nombreEmpleado}"
+								class="form-control" th:errorclass="'form-control alert-danger'" />
+							<small class="form-text text-danger"
+								th:if="${#fields.hasErrors('empleado.nombreEmpleado')}"
+								th:errors="*{nombreEmpleado}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class=" col-md-3 col-sm-4 col-form-label">Apellidos</label>
+						<div class="col-sm-8">
+							<input type="text" th:field="*{empleado.apellidoEmpleado}"
+								class="form-control" th:errorclass="'form-control alert-danger'" />
+							<small class="form-text text-danger"
+								th:if="${#fields.hasErrors('empleado.apellidoEmpleado')}"
+								th:errors="*{apellidoEmpleado}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class=" col-md-3 col-sm-4 col-form-label">Categorias</label>
+						<div class="col-sm-8">
+							<input type="text" th:field="*{empleado.misCategorias}"
+								class="form-control" th:errorclass="'form-control alert-danger'" />
+							<small class="form-text text-danger"
+								th:if="${#fields.hasErrors('empleado.misCategorias')}"
+								th:errors="*{misCategorias}"></small>
+						</div>
+					</div>
+
+					<!-- 				<div class="form-group row"> -->
+					<!--                     <label class=" col-md-3 col-sm-4 col-form-label">Roles</label> -->
+					<!--                     <div class="col-sm-8"> -->
+					<!--                         <input type="text" th:field="*{roles}" class="form-control" -->
+					<!--                             th:errorclass="'form-control alert-danger'" /> <small class="form-text text-danger" th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"></small> -->
+					<!--                     </div> -->
+					<!--                 </div> -->
+
+					<!-- introducir la imagen -->
+					<div class="form-group row">
+						<label for="file" class="col-md-3 col-sm-4 col-form-label">Foto</label>
+						<div class="col-sm-8">
+							<!-- importante que type y name sea file -->
+							<input type="file" name="file" class="form-control" />
+						</div>
+					</div>
+
+					
+					<div sec:authorize="hasRole('ROLE_ADMIN')" class="form-group row">
+					<label class=" col-md-3 col-sm-4 col-form-label">Roles</label>
+						<div class="col-sm-8">
+							<select th:field="*{rol.authority}">
+								<option th:value="ROLE_ADMIN">ROLE_ADMIN</option>
+								<option selected th:value="ROLE_USER">ROLE_USER</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="container"></div>
+					<div class="form-group mt-5">
+						<div class="col-sm-8">
+							<input type="submit" th:value="${titulo}"
+								class="btn btn-secondary" />
+						</div>
+					</div>
+				</form>
+
+				
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="">
+		<div th:replace="fragments/header :: footer">...</div>
+	</div>
+</body>
+
+
+
+</html>

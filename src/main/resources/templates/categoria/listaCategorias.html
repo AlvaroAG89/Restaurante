@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sena de picgoteo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap" rel="stylesheet">
+
+        
+</head>
+
+<body>
+
+    <div class="sticky-top">
+        <div style="background-color: rgb(54, 6, 6);">                 <!--div header-nav--->
+            <header class="p-3 mb-2  w-100" style="height: 120px;">
+                <!--HEADER--->
+                <h1 class="mt-3 float-left text-warning" style="font-family: 'Playfair Display';"><u>Sena de picgoteo</u></h1>
+
+            </header>
+            <!--/HEADER--->
+    </div>               <!--/div header-nav--->
+
+<div class="container mt-5">
+    <div class="card-columns">
+        <!--*********************************-->
+        <!--Crear un loop aqui con las cartas-->
+        <!--*********************************-->
+        <div th:each="categoria:${categorias}" th:object="${categoria}" >       
+            <div class="card bg-light" style="width:300px">
+                <img class="img-fluid img-thumbnail" th:src="@{'/uploads/' + ${categoria.fotoCategoria}}" >
+                <div class="card-body">
+                    <h3 class="card-title" th:text="${categoria.nombreCategoria}"></h3>
+
+                    <a href="#" class="btn btn-primary" >Añadir a Empleado</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+    <footer>
+        <!--FOOTER--->
+        <p class="text-warning text-center p-3 mb-2 w-100 fixed-bottom" style="background-color: rgb(54, 6, 6);">"Et voila!"</p>
+    </footer>
+    <!--/FOOTER--->
+
+</body>
+
+</html>
